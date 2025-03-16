@@ -1,0 +1,306 @@
+.organic-container {
+  width: 100%;
+  height: 220px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  perspective: 1200px;
+  overflow: visible;
+}
+
+/* Glow effect behind the blob when active */
+.organic-container.active::before {
+  content: '';
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle, 
+    rgba(106, 90, 205, 0.4) 0%, 
+    rgba(106, 90, 205, 0.1) 40%, 
+    transparent 70%
+  );
+  filter: blur(15px);
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.organic-container.active.interacting::before {
+  opacity: 1;
+  transform: scale(1.1);
+  animation: pulse-glow 3s infinite alternate ease-in-out;
+}
+
+.organic-blob-wrapper {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 1;
+}
+
+/* Main SVG blob */
+.organic-blob {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transition: filter 1s ease;
+  will-change: filter;
+}
+
+.organic-container.active .organic-blob {
+  animation: slow-rotate 60s infinite linear;
+}
+
+.blob-base {
+  transform-origin: center;
+  transition: all 0.5s ease;
+  will-change: transform;
+}
+
+.organic-container.active .blob-base {
+  animation: gentle-pulse 6s infinite alternate ease-in-out;
+}
+
+.blob-texture {
+  mix-blend-mode: overlay;
+  transform-origin: center;
+  animation: slow-counter-rotate 30s infinite linear;
+}
+
+.blob-inner-glow {
+  filter: blur(10px);
+  transform-origin: center;
+}
+
+.organic-container.active .blob-inner-glow {
+  animation: glow-pulse 4s infinite alternate ease-in-out;
+}
+
+.blob-highlight {
+  filter: blur(5px);
+  mix-blend-mode: overlay;
+  transform-origin: center;
+}
+
+.organic-container.active .blob-highlight {
+  animation: shift-highlight 8s infinite alternate ease-in-out;
+}
+
+/* Ripple effects */
+.ripple-effect {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transform: scale(0.9);
+  pointer-events: none;
+}
+
+.organic-container.active .ripple-effect {
+  animation: ripple 4s infinite ease-out;
+}
+
+.ripple-effect.delay-1 {
+  animation-delay: 1s !important;
+}
+
+.ripple-effect.delay-2 {
+  animation-delay: 2s !important;
+}
+
+/* Particles */
+.particle-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.organic-particle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  opacity: 0.7;
+  filter: blur(2px);
+  pointer-events: none;
+  will-change: transform;
+}
+
+.organic-container.active .organic-particle {
+  animation: float-particle 10s infinite alternate ease-in-out;
+}
+
+/* Interactive hint */
+.interaction-hint {
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(106, 90, 205, 0.8);
+  color: white;
+  padding: 6px 14px;
+  border-radius: 15px;
+  font-size: 13px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  white-space: nowrap;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}
+
+.organic-container.interacting .interaction-hint {
+  opacity: 0.9;
+}
+
+/* Animations */
+@keyframes gentle-pulse {
+  0% {
+    transform: scale(0.98);
+  }
+  100% {
+    transform: scale(1.02);
+  }
+}
+
+@keyframes slow-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes slow-counter-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes glow-pulse {
+  0% {
+    opacity: 0.1;
+    stroke-width: 15px;
+  }
+  100% {
+    opacity: 0.2;
+    stroke-width: 25px;
+  }
+}
+
+@keyframes shift-highlight {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.15;
+  }
+  50% {
+    transform: translate(5px, -5px) scale(1.05);
+    opacity: 0.25;
+  }
+  100% {
+    transform: translate(-5px, 5px) scale(0.95);
+    opacity: 0.15;
+  }
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.6;
+    border-width: 2px;
+  }
+  50% {
+    opacity: 0.3;
+    border-width: 1px;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+    border-width: 0.5px;
+  }
+}
+
+@keyframes float-particle {
+  0% {
+    transform: translate(calc(sin(0deg) * 40px), calc(cos(0deg) * 40px)) scale(0.8);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translate(calc(sin(180deg) * 20px), calc(cos(180deg) * 40px)) scale(1.2);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(calc(sin(360deg) * 40px), calc(cos(270deg) * 20px)) scale(0.6);
+    opacity: 0.3;
+  }
+}
+
+@keyframes pulse-glow {
+  0% {
+    opacity: 0.7;
+    filter: blur(15px);
+    transform: scale(1);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(20px);
+    transform: scale(1.2);
+  }
+}
+
+/* Initialize particles in different positions */
+.organic-particle:nth-child(1) { top: 20%; left: 30%; }
+.organic-particle:nth-child(2) { top: 70%; left: 20%; }
+.organic-particle:nth-child(3) { top: 80%; left: 50%; }
+.organic-particle:nth-child(4) { top: 60%; left: 80%; }
+.organic-particle:nth-child(5) { top: 30%; left: 70%; }
+.organic-particle:nth-child(6) { top: 40%; left: 40%; }
+.organic-particle:nth-child(7) { top: 10%; left: 60%; }
+.organic-particle:nth-child(8) { top: 50%; left: 10%; }
+
+/* Customize particle animations */
+.organic-particle:nth-child(1) { animation-duration: 8s !important; }
+.organic-particle:nth-child(2) { animation-duration: 12s !important; }
+.organic-particle:nth-child(3) { animation-duration: 10s !important; }
+.organic-particle:nth-child(4) { animation-duration: 9s !important; }
+.organic-particle:nth-child(5) { animation-duration: 11s !important; }
+.organic-particle:nth-child(6) { animation-duration: 13s !important; }
+.organic-particle:nth-child(7) { animation-duration: 7s !important; }
+.organic-particle:nth-child(8) { animation-duration: 14s !important; }
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .organic-blob-wrapper {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .organic-container {
+    height: 180px;
+  }
+  
+  .interaction-hint {
+    font-size: 11px;
+    bottom: -25px;
+  }
+} 

@@ -1,0 +1,39 @@
+.beneficiaries-section {
+  background-color: #f9f9f9;
+}
+
+.beneficiaries-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.beneficiary-card {
+  background-color: white;
+  padding: 2.5rem;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.beneficiary-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.beneficiary-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.beneficiary-card h3 {
+  color: #6a5acd;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .beneficiaries-grid {
+    grid-template-columns: 1fr;
+  }
+} 

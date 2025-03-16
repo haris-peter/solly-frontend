@@ -1,0 +1,150 @@
+.canvas-ball-container {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  touch-action: none;
+  overflow: visible;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.canvas-audio-ball {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  touch-action: none;
+  pointer-events: none;
+}
+
+.canvas-ball-label {
+  position: absolute;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.95);
+  background-color: rgba(106, 90, 205, 0.2);
+  padding: 0.5rem 1.2rem;
+  border-radius: 20px;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  z-index: 2;
+  pointer-events: none;
+  letter-spacing: 0.5px;
+  transform: translateY(5px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  white-space: nowrap;
+}
+
+.canvas-ball-label.active {
+  background-color: rgba(106, 90, 205, 0.4);
+  transform: translateY(0);
+  box-shadow: 0 6px 20px rgba(106, 90, 205, 0.3);
+  animation: pulse-text 2s infinite alternate;
+}
+
+/* Ripple animation - now triggered by isListening state */
+.ripple-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid rgba(106, 90, 205, 0.4);
+  width: 100px;
+  height: 100px;
+  opacity: 0;
+  transform: scale(0.8);
+  z-index: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* Active state now controlled by isListening prop */
+.ripple-ring.active {
+  opacity: 1;
+  animation: ripple 3s infinite ease-out;
+}
+
+.ripple-ring.delayed {
+  animation-delay: 1s;
+}
+
+/* Remove hover effects related to hold-to-speak */
+.canvas-ball-container .canvas-ball-label {
+  background-color: rgba(106, 90, 205, 0.3);
+  transform: translateY(0);
+}
+
+/* Smoothly transition on active state change */
+.canvas-ball-container:active .canvas-ball-label {
+  transform: translateY(2px);
+  transition: transform 0.1s ease;
+}
+
+/* Animations */
+@keyframes ripple {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.7;
+  }
+  80% {
+    transform: scale(1.7);
+    opacity: 0.2;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+@keyframes pulse-text {
+  0% {
+    opacity: 0.9;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1.05);
+  }
+}
+
+/* Add breathing animation for idle state */
+@keyframes gentle-breathing {
+  0% {
+    transform: scale(0.98);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.02);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.98);
+    opacity: 0.8;
+  }
+}
+
+/* Apply breathing animation when not active/listening */
+.canvas-audio-ball:not(.active) {
+  animation: gentle-breathing 4s infinite ease-in-out;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .canvas-ball-container {
+    height: 180px;
+  }
+  
+  .canvas-ball-label {
+    font-size: 1rem;
+    padding: 0.4rem 1rem;
+  }
+  
+  .ripple-ring {
+    width: 80px;
+    height: 80px;
+  }
+} 
