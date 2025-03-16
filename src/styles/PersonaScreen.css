@@ -25,7 +25,7 @@
 .persona-cards {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 3rem;
+  gap: 2rem;
   margin-bottom: 3rem;
 }
 
@@ -71,6 +71,58 @@
   line-height: 1.6;
 }
 
+/* Journal Button Container */
+.journal-button-container {
+  text-align: center;
+  margin: 2rem auto 3rem;
+  max-width: 600px;
+  padding: 2rem;
+  background: linear-gradient(135deg, #ffffff 0%, #f0f7ff 100%);
+  border-radius: 15px;
+  border: 1px solid #e1e8f0;
+  box-shadow: 0 10px 25px rgba(106, 90, 205, 0.1);
+  transition: all 0.3s ease;
+}
+
+.journal-button-container:hover {
+  box-shadow: 0 15px 35px rgba(106, 90, 205, 0.15);
+}
+
+.btn-journal {
+  background-color: #6a5acd;
+  color: white;
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 8px 20px rgba(106, 90, 205, 0.2);
+}
+
+.btn-journal:hover {
+  background-color: #5b4cbe;
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(106, 90, 205, 0.3);
+}
+
+.journal-icon {
+  font-size: 1.3rem;
+}
+
+.journal-description {
+  color: #666;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin: 0 auto;
+  max-width: 500px;
+}
+
 .back-button-container {
   text-align: center;
 }
@@ -83,5 +135,14 @@
   .persona-card {
     max-width: 450px;
     margin: 0 auto;
+  }
+  
+  .journal-button-container {
+    padding: 1.5rem;
+  }
+  
+  .btn-journal {
+    width: 100%;
+    justify-content: center;
   }
 } 

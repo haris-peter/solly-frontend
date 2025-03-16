@@ -12,6 +12,7 @@ import GetInvolvedSection from './components/GetInvolvedSection';
 import Footer from './components/Footer';
 import PersonaScreen from './components/PersonaScreen';
 import AudioInterface from './components/AudioInterface';
+import DiaryEntry from './components/DiaryEntry';
 
 function HomePage() {
   return (
@@ -36,6 +37,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/persona-select" element={<PersonaScreen />} />
         <Route path="/audio-demo/:persona" element={<AudioInterface />} />
+        <Route path="/diary-entry" element={<DiaryEntry />} />
       </Routes>
     </Router>
   );

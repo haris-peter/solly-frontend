@@ -43,6 +43,19 @@ function PersonaScreen() {
           </div>
         </div>
         
+        <div className="journal-button-container">
+          <button 
+            className="btn btn-journal"
+            onClick={() => navigate('/diary-entry')}
+          >
+            <span className="journal-icon">📝</span>
+            Open Memory Journal
+          </button>
+          <p className="journal-description">
+            Record and analyze your daily thoughts, experiences, and memories to help strengthen cognitive function.
+          </p>
+        </div>
+        
         <div className="back-button-container">
           <button className="btn btn-secondary" onClick={() => navigate('/')}>
             Back to Home
